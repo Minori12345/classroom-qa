@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><%= question.title %></title></head>
+<body>
+  <main>
+    <a href="/">質問一覧へ</a>
+    <h1><%= question.title %></h1>
+    <a href="/questions/<%= question.id %>/edit">編集する</a>
+    <form action="/questions/<%= question.id %>/delete" method="post"
+      onsubmit="return confirm('この質問を削除しますか？')">
+      <button type="submit">質問を削除</button>
+    </form>
+    <p><%= question.category %>・<%= question.author %></p>
+    <p style="white-space: pre-wrap"><%= question.body %></p>
+
+    <h2>回答一覧</h2>
+    <% if (answers.length === 0) { %>
+      <p>まだ回答はありません。</p>
+    <% } else { %>
+      <% for (const answer of answers) { %>
+        <article>
+          <p><strong><%= answer.author %></strong></p>
+          <p style="white-space: pre-wrap"><%= answer.body %></p>
+        </article>
+        <form action="/questions/<%= question.id %>/answers/<%= answer.id %>/delete"
+              method="post"
+              onsubmit="return confirm('この回答を削除しますか？')">
+          <button type="submit">回答を削除</button>
+        </form>
+      <% } %>
+    <% } %>
+
+    <h2>回答する</h2>
+    <form action="/questions/<%= question.id %>/answers" method="post">
+      <p>
+        <label>回答者名 <input name="author" required></label>
+      </p>
+      <p>
+        <label>回答内容 <textarea name="body" rows="5" required></textarea></label>
+      </p>
+      <button type="submit">回答を投稿</button>
+    </form>
+  </main>
+</body>
+</html>

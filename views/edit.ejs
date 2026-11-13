@@ -1,0 +1,14 @@
+<h1>質問を編集</h1>
+<form action="/questions/<%= question.id %>/edit" method="post">
+    <label>タイトル <input name="title" value="<%= question.title %>"></label>
+    <p><label>質問内容 <textarea name="body" rows="6" required><%= question.body %></textarea></label></p>
+    <label>カテゴリ
+        <select name="category" required>
+        <option value="">選択してください</option>
+        <% for (const category of categories) { %>
+            <option value="<%= category %>" <%= question.category === category ? 'selected' : '' %>><%= category %></option>
+        <% } %>
+        </select>
+    </label>
+    <button type="submit">変更を保存</button>
+</form>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>質問を投稿</title></head>
+<body>
+  <main>
+    <a href="/">質問一覧へ</a>
+    <h1>質問を投稿</h1>
+    <% if (error) { %><p role="alert"><%= error %></p><% } %>
+    <form action="/questions" method="post">
+      <p><label>タイトル <input name="title" value="<%= values.title %>" required></label></p>
+      <p><label>質問内容 <textarea name="body" rows="6" required><%= values.body %></textarea></label></p>
+      <p><label>投稿者名 <input name="author" value="<%= values.author %>" required></label></p>
+      <p>
+        <label>カテゴリ
+          <select name="category" required>
+            <option value="">選択してください</option>
+            <% for (const category of categories) { %>
+              <option value="<%= category %>" <%= values.category === category ? 'selected' : '' %>><%= category %></option>
+            <% } %>
+          </select>
+        </label>
+      </p>
+      <button type="submit">投稿する</button>
+    </form>
+  </main>
+</body>
+</html>
